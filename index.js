@@ -28,8 +28,8 @@ function getRandomInRange(from, to, fixed) {
 }
 
 var addLocation = function(){
-   var lat = -84.038 || getRandomInRange(-180,180,3);
-   var lng = -53.120 || getRandomInRange(-180,180,3);
+   var lat = getRandomInRange(-180,180,3);
+   var lng = getRandomInRange(-180,180,3);
 
     console.log(lat,lng);
   store
@@ -57,10 +57,17 @@ var nearbyLocationsRef = function(lat, lng, d = 10){
 //     addLocation(dummyPoints[i][0], dummyPoints[i][1]);    
 // }
 
-// for (var i = 0; i < 1000 ; i++){
-//     setTimeout(addLocation, 1000);
+// var counter = 1000;
+// function request_loop() {
+
+//     addLocation();
+//     counter--;
+//     if (counter > 0) {
+//         setTimeout(request_loop, 500);    
+//     }
 // }
-addLocation();
+
+// request_loop();
 
 nearbyLocationsRef(-84.038,-57.726).get().then(function(querySnapshot){
     // console.log(querySnapshot.docs);
@@ -69,6 +76,7 @@ nearbyLocationsRef(-84.038,-57.726).get().then(function(querySnapshot){
         // doc.data() is never undefined for query doc snapshots
         console.log(doc.id, " => ", doc.data());
     });
+    process.exit(0);
 }).catch(function(error) {
     console.log('error');
     console.log("Error getting documents: ", error);
