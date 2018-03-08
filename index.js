@@ -41,7 +41,7 @@ var addLocation = function(){
     });
 };
 
-var nearbyLocationsRef = function(lat, lng, d = 10){
+var nearbyLocationsRef = function(lat, lng, d = 5){
   var bits =  d === 10 ? 24 : d === 5 ? 26 : 30;
 
 //   var bits = 24; 
@@ -69,9 +69,19 @@ var nearbyLocationsRef = function(lat, lng, d = 10){
 
 // request_loop();
 
+count = function(){
+    store.collection('locations').get().then(
+        function(querySnapshot){
+            console.log(querySnapshot.size);
+            
+        }
+    )
+}
+count();
 nearbyLocationsRef(-84.038,-57.726).get().then(function(querySnapshot){
     // console.log(querySnapshot.docs);
     console.log('arrived');
+    console.log(querySnapshot.size);
     querySnapshot.forEach(function(doc) {
         // doc.data() is never undefined for query doc snapshots
         console.log(doc.id, " => ", doc.data());
